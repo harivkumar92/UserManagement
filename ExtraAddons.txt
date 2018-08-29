@@ -1,0 +1,18 @@
+Installed packages:
+
+1. express : Helps create a web server
+
+2. nodemon (npm install --save-dev nodemon) : Monitors files and restarts the server whenever a change is made.
+
+=> *add "start" script inside "scripts" in package.json.
+	("start": "nodemon server.js")
+
+   *use 'npm start' in terminal to start web server.
+
+3. body-parser (parses incoming request data)
+
+	(npm install --save body-parser)
+
+4. mysql
+
+5. Sequelize

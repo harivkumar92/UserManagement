@@ -2,7 +2,8 @@
 
 const express = require("express");
 const app = express();
-const userRoutes = require('./api/routes/user');  //Requests are forwarded to this file if the target URL is '/user'
+const userRoutes = require('./api/routes/user');
+const roleRoutes = require('./api/routes/role');
 const bodyParser = require('body-parser');
 
 //Extracts JSON data and makes it easily readable
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/user', userRoutes);
+app.use('/role', roleRoutes);
 
 //Handles a route which couldnt be found
 app.use((req, res, next) => {                     
