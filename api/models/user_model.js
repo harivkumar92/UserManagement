@@ -11,6 +11,7 @@ const sequelize = new Sequelize('usermanagement', 'user', 'password', {
         idle: 10000
     }
 });
+
 const User = sequelize.define('user', {
     user_email: Sequelize.STRING(100),
     user_phone: Sequelize.INTEGER,
