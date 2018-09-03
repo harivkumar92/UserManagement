@@ -84,7 +84,7 @@ router.get('/', (req, res, next) => {
  */
 router.post('/', (req, res, next) => {
     if(req.body.role_name === undefined){
-        res.status(201).json({
+        res.status(203).json({
             Message: "Error while inserting record",
             Input: "role_name cannot be null"
         })

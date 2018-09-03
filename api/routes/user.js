@@ -93,7 +93,7 @@ router.post('/', (req, res, next) =>{
     const password = req.body.user_password;
 
     if(password === undefined || password == "") {
-        res.status(201).json( {
+        res.status(203).json( {
             Message: "Error while inserting record",
             Input: "user_password cannot be null"
         })
@@ -231,7 +231,7 @@ router.patch('/:id', (req, res, next) =>{
                 }
                 //Throw error if given password is a null string
                 else if(req.body.user_password == ""){
-                    res.status(201).json({
+                    res.status(203).json({
                         Message: "Error while inserting record",
                         Input: "user_password cannot be null"
                     })
