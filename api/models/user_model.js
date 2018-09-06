@@ -1,4 +1,4 @@
-const Role = require('../models/role_model');
+const role = require('../models/role_model');
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('usermanagement', 'user', 'password', {
     host: 'localhost',
@@ -12,18 +12,44 @@ const sequelize = new Sequelize('usermanagement', 'user', 'password', {
     }
 });
 
-const User = sequelize.define('user', {
-    user_email: Sequelize.STRING(100),
-    user_phone: Sequelize.INTEGER,
-    user_password: { type: Sequelize.CHAR(60).BINARY, allowNull: false },
-    user_activation_code: Sequelize.STRING(100),
-    user_status: { type: Sequelize.STRING(10), allowNull: false, defaultValue: 'inactive' }
-});
+class User{
+    createUserTable(){
+        sequelize.define('user', {
+            user_email: Sequelize.STRING(100),
+            user_phone: Sequelize.INTEGER,
+            user_password: { type: Sequelize.CHAR(60).BINARY, allowNull: false },
+            user_activation_code: Sequelize.STRING(100),
+            user_status: { type: Sequelize.STRING(10), allowNull: false, defaultValue: 'inactive' },
+            created_At: Sequelize.DATE,
+            updated_At: Sequelize.DATE
+            },{ 
+                timestamps: false 
+            });
+        sequelize.sync();  
+    }
+    getAllUsers(){
+        sequelize.query("SELECT * FROM `users`", { type: sequelize.QueryTypes.SELECT})
+            .then(doc => {
+                console.log(doc);
+                if(doc === null) {
+                    var response = 404;
+                    return response;
+                    res.status(404).json({
+                        Message: "There are no records in the database"
+                    })
+                }
+                else{
+                    res.status(200).json({
+                        Message: "List of all records in the database",
+                        Records: doc
+                    });
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+}
 
-User.belongsTo(Role);
-sequelize
-    .sync();
-  //  .then(() => 
-   // sequelize.close()
-//);
-module.exports = User;
+user = new User();
+module.exports = user;

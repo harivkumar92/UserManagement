@@ -1,4 +1,3 @@
-//Create this table before user (forgein key dependency)
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('usermanagement', 'user', 'password', {
     host: 'localhost',
@@ -12,16 +11,18 @@ const sequelize = new Sequelize('usermanagement', 'user', 'password', {
     }
 });
 
-const Role = sequelize.define('role', {
-    role_name: { type: Sequelize.STRING(45), allowNull: false },
-    role_status: Sequelize.STRING(10)
-},{ 
-    timestamps: false 
-});
+class Role{
+    createRoleTable(){
+        sequelize
+            .define('role', {
+                role_name: { type: Sequelize.STRING(45), allowNull: false },
+                role_status: Sequelize.STRING(10) 
+            },{ 
+                timestamps: false 
+            });
+        sequelize.sync();  
+    }
+}
 
-sequelize
-    .sync();
- //   .then(() => 
- //   sequelize.close()
-//);
-module.exports = Role;
+role = new Role();
+module.exports = role;

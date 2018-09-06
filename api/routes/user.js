@@ -34,25 +34,7 @@ const bcrypt = require('bcrypt');
  *     }
  */
 router.get('/', (req, res, next) => {
-    User.findAll()
-        .then(doc => {
-            console.log(doc);
-            if(doc === null) {
-                doc = "There are no records in the database";
-                res.status(404).json({
-                    Message: "There are no records in the database"
-                })
-            }
-            else{
-                res.status(200).json({
-                    Message: "List of all records in the database",
-                    Records: doc
-                });
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        })
+    User.getAllUsers();
 });
 
 /**
