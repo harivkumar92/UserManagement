@@ -3,7 +3,7 @@ const router = express.Router();
 const Seqilize = require('sequelize'); 
 const User = require('../models/user_model');
 const bcrypt = require('bcrypt');
-const controller = require('../controller/user_controller');
+const ucontroller = require('../controller/user_controller');
 
 /**
  * @api {get} /user/ Request All User's Records
@@ -43,7 +43,7 @@ const controller = require('../controller/user_controller');
 
 router.get('/', (req, res, next) => {
     var response = res;
-    controller.userGetAll(response);
+    ucontroller.userGetAll(response);
 });
 
 /**
@@ -116,7 +116,7 @@ router.post('/', (req, res, next) =>{
     var request = req;
     var response = res;
 
-    controller.userPost(request, response);
+    ucontroller.userPost(request, response);
 });
 
 /**
@@ -156,7 +156,7 @@ router.get('/:id', (req, res, next) =>{
     var request = req;
     var response = res;
 
-    controller.userGetID(request, response);              
+    ucontroller.userGetID(request, response);              
 });
 
 /**
@@ -191,7 +191,7 @@ router.patch('/:id', (req, res, next) =>{
     var request = req;
     var response = res;
 
-    controller.userPatchID(request, response);
+    ucontroller.userPatchID(request, response);
 });
 
 /**
@@ -223,7 +223,7 @@ router.delete('/:id', (req, res, next) => {
     var request = req;
     var response = res;
     
-    controller.userDeleteID(request, response);
+    ucontroller.userDeleteID(request, response);
 });
 
 module.exports = router;

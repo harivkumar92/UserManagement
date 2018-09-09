@@ -2,7 +2,7 @@ Database = require('../models/database_check');
 User = require('../models/user_model');
 const bcrypt = require('bcrypt');
 
-class Controller extends Database{
+class UserController extends Database{
     checkDatabase(){
         super.createDatabase();
     }
@@ -142,5 +142,5 @@ class Controller extends Database{
     }//END userDeleteID
 }
 
-controller = new Controller();
-module.exports = controller;
+ucontroller = new UserController();
+module.exports = ucontroller;

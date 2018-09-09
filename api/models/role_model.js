@@ -24,6 +24,40 @@ class Role{
             });
         sequelize.sync();  
     }
+    getAllRoles(tempDoc){
+        tempDoc = sequelize.query("SELECT * FROM `roles`", { type: sequelize.QueryTypes.SELECT});
+        return tempDoc;
+    }
+    postRole(object){
+        var tempDoc = this.roleTable.create(object);
+        return tempDoc;
+    }
+    getRoleID(id){
+        var tempDoc = this.roleTable.findById(id);
+        return tempDoc;
+    }
+    patchRoleID(id){
+        var tempDoc = this.roleTable.findById(id);
+        return tempDoc;
+    }
+    updateNoName(id, status){
+        this.roleTable.update({
+            role_status: status
+        },{
+            where: {id: id}, returning: true
+        })
+    }
+    updateWithName(id, name, status){
+        this.roleTable.update({
+            role_name: name,
+            role_status: status
+        },{
+            where: {id: id}, returning: true
+        })
+    }
+    deleteWithID(id){
+        this.roleTable.destroy({where: {id: id}});
+    }
 }
 
 role = new Role();
