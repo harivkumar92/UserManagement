@@ -80,7 +80,7 @@ router.get('/', (req, res, next) => {
  *       "Input": "user_password cannot be null"
  *     }
  */
-router.post('/', (req, res, next) =>{
+/*router.post('/', (req, res, next) =>{
     const password = req.body.user_password;
 
     if(password === undefined || password == "") {
@@ -110,6 +110,13 @@ router.post('/', (req, res, next) =>{
             Record: userRes
         })
     }
+});*/
+
+router.post('/', (req, res, next) =>{
+    var request = req;
+    var response = res;
+
+    controller.userPost(request, response);
 });
 
 /**
@@ -146,24 +153,10 @@ router.post('/', (req, res, next) =>{
  *     }
  */
 router.get('/:id', (req, res, next) =>{
-    const id = req.params.id;
-    User
-    .findById(id)
-    .then(doc => {
-        if(doc === null) {
-            doc = "There is no record by that id";
-            res.status(404).json({
-                Message: "Searching for record",
-                Record: doc
-            });
-        }
-        else{
-            res.status(200).json({
-                Message: "Searching for record",
-                Record: doc
-            });
-        }
-    })                
+    var request = req;
+    var response = res;
+
+    controller.userGetID(request, response);              
 });
 
 /**
@@ -195,59 +188,10 @@ router.get('/:id', (req, res, next) =>{
  *     }
  */
 router.patch('/:id', (req, res, next) =>{
-    const id = req.params.id;
+    var request = req;
+    var response = res;
 
-    User.findById(id)
-        .then(doc =>{
-            if(doc === null){
-                doc = "There is no record by that id";
-                res.status(404).json({
-                    Message: doc,
-                });
-            }
-            else{
-                //If password is not being updated, no need to hash here
-                if(req.body.user_password === undefined){
-                    User.update({
-                        user_email: req.body.user_email,
-                        user_phone: req.body.user_phone,
-                    },{
-                        where: {id: req.params.id}, returning: true
-                    })
-                    .then(function (result){
-                        res.status(200).json({
-                            Message: "Record updated"
-                        })
-                    }); 
-                }
-                //Throw error if given password is a null string
-                else if(req.body.user_password == ""){
-                    res.status(203).json({
-                        Message: "Error while inserting record",
-                        Input: "user_password cannot be null"
-                    })
-                }
-                else{
-                    const password = req.body.user_password;
-
-                    bcrypt.hash(password, 10, function(err,hash){
-                        User.update({
-                            user_email: req.body.user_email,
-                            user_phone: req.body.user_phone,
-                            user_password: hash
-                        },{
-                            where: {id: req.params.id}, returning: true
-                        })
-                        .then(function (result){
-                            res.status(200).json({
-                                Message: "Record updated with hashed password"
-                            })
-                        });
-                    });
-                }
-                
-            }
-        });
+    controller.userPatchID(request, response);
 });
 
 /**
@@ -276,28 +220,10 @@ router.patch('/:id', (req, res, next) =>{
  *     }
  */
 router.delete('/:id', (req, res, next) => {
-    const id = req.params.id;
-
-    User
-    .findById(id)
-    .then(doc => {
-        if(doc === null) {
-            doc = "There is no record by that id";
-        }
-        res.status(404).json({
-            Message: "Searching for record", 
-            Record: doc
-        });
-    })
-    User.destroy({where: {id: id}})
-    .then(doc => {
-        res.status(200).json({
-            Message: "Record deleted"
-        });
-    })
-        .catch(err => {
-            console.log(err);
-        })
+    var request = req;
+    var response = res;
+    
+    controller.userDeleteID(request, response);
 });
 
 module.exports = router;

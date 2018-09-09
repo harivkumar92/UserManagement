@@ -42,40 +42,41 @@ class User extends Base{
         }
         this.userTable.create(tempdoc);
     }
-    sample(){
-        console.log("user_model works");
-    }
     getAllUsers(tempDoc){
-        //tempDoc = this.userTable.findAll();
         tempDoc = sequelize.query("SELECT * FROM `users`", { type: sequelize.QueryTypes.SELECT});
         return tempDoc;
-
-        /*
-       sequelize.query("SELECT * FROM `users`", { type: sequelize.QueryTypes.SELECT})     
-            .then(doc => {
-                console.log("model: ",tempDoc);
-                               
-               if(doc === '') {
-                    var response = {
-                        Message: "There are no records in the database"
-                    };
-                    console.log("reponse value: ", response);
-                    return response;
-                }
-                else{
-                    var response = {
-                        Message: "List of all records in the database",
-                        Records: doc
-                    };
-                    return response;
-                }
-            })
-            
-            .catch(err => {
-                console.log(err);
-            });
-            //tempDoc = "after";
-            return tempDoc;*/
+    }
+    postUser(object){
+        var tempDoc = this.userTable.create(object);
+        return tempDoc;
+    }
+    getUserID(id){
+        var tempDoc = this.userTable.findById(id);
+        return tempDoc;
+    }
+    patchUserID(id){
+        var tempDoc = this.userTable.findById(id);
+        return tempDoc;
+    }
+    updateNoPass(id, email, phone){
+        this.userTable.update({
+            user_email: email,
+            user_phone: phone,
+        },{
+            where: {id: id}, returning: true
+        })
+    }
+    updateWithPass(id, email, phone, hash){
+        this.userTable.update({
+            user_email: email,
+            user_phone: phone,
+            user_password: hash
+        },{
+            where: {id: id}, returning: true
+        })
+    }
+    deleteWithID(id){
+        this.userTable.destroy({where: {id: id}});
     }
 }
 
