@@ -3,6 +3,7 @@ const router = express.Router();
 const Seqilize = require('sequelize'); 
 const User = require('../models/user_model');
 const bcrypt = require('bcrypt');
+const controller = require('../controller/user_controller');
 
 /**
  * @api {get} /user/ Request All User's Records
@@ -33,8 +34,16 @@ const bcrypt = require('bcrypt');
  *       "Message": "There are no records in the database"
  *     }
  */
+/*router.get('/', (req, res, next) => {
+    var document;
+    controller.userGetAll(document).then(doc => {
+         console.log("finally: ",doc);
+        });
+});*/
+
 router.get('/', (req, res, next) => {
-    User.getAllUsers();
+    var response = res;
+    controller.userGetAll(response);
 });
 
 /**
