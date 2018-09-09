@@ -5,6 +5,10 @@ const app = express();
 const userRoutes = require('./api/routes/user');
 const roleRoutes = require('./api/routes/role');
 const bodyParser = require('body-parser');
+const Controller = require('./api/controller/user_controller');
+
+//Creates a Database and its tables if it doesn't already exist
+Controller.checkDatabase();
 
 //Extracts JSON data and makes it easily readable
 app.use(bodyParser.json());                        
