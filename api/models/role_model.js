@@ -12,9 +12,11 @@ const sequelize = new Sequelize('usermanagement', 'user', 'password', {
 });
 
 class Role{
+    constructor(){
+        this.roleTable;
+    }
     createRoleTable(){
-        sequelize
-            .define('role', {
+        this.roleTable = sequelize.define('role', {
                 role_name: { type: Sequelize.STRING(45), allowNull: false },
                 role_status: Sequelize.STRING(10) 
             },{ 

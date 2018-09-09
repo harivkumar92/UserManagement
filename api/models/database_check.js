@@ -41,5 +41,6 @@ class Database{
     }
 }
 
-database = new Database();
-database.createDatabase();
+//database = new Database();
+//database.createDatabase();
+module.exports = Database;
