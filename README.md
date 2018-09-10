@@ -15,7 +15,7 @@ Running the api:
 
     * TERMINAL: npm start
 
-Unit test cases:
+Unit test cases: Needs update
     
     * Test cases are written under usermanagement/test/
 
