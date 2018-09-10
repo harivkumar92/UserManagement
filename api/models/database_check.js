@@ -1,15 +1,16 @@
 //Ensuring that a database of a name in file config.json exists
 const Sequelize = require('sequelize');
+const config = require('f:/Freelance/git/UserManagement/config');
 const user = require('../models/user_model');
 const role = require('../models/role_model');
-const sequelizeCheck = new Sequelize('', 'user', 'password', {
-    host: 'localhost',
-    dialect: 'mysql',
+const sequelizeCheck = new Sequelize('', config.db.con_name, config.db.con_password, {
+    host: config.db.host,
+    dialect: config.db.dialect,
     operatorsAliases: false,
     pool: {
         max: 5,
         min: 0,
-        acquire: 30000,
+        acquire: config.db.port,
         idle: 10000
     }
 });

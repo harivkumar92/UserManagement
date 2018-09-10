@@ -1,13 +1,11 @@
 Pre-requisites:
 
     * MySql Database
-        - During installation, ensure server-side authentication protocol is set to 'mynativesql', and not the default 'Secure SHA authentication'. Doing this will avoid connection errors while running.
+        - During installation, ensure server-side authentication protocol is set to 'mynativesql', and not the default 'Secure SHA authentication'. Doing this will avoid connection errors while running the API.
 
     *  Ensure a Database is present in the MySql connection.
-        - Inside the api structure, change current directory(cd) to api/models/
-        - Change the database name if required, in the .query function
-        - TERMINAL: node database_check.js
-        (If database name is changed, make sure to make subsequent changes in the role_model and user_model files while initializing 'sequelize')
+        - Database and subsequent tables are created by default everytime the api is run. (method call occurs inside app.js)
+        - Set the required database connection variables present inside 'config.js' available in the root folder.
 
 Documentation:
 
@@ -16,8 +14,6 @@ Documentation:
 Running the api:
 
     * TERMINAL: npm start
-
-    * 
 
 Unit test cases:
     

@@ -1,14 +1,15 @@
 const Role = require('../models/role_model');
 const Base = require('../models/BaseClass_model');
+const config = require('f:/Freelance/git/UserManagement/config');
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('usermanagement', 'user', 'password', {
-    host: 'localhost',
-    dialect: 'mysql',
+const sequelize = new Sequelize(config.db.name, config.db.con_name, config.db.con_password, {
+    host: config.db.host,
+    dialect: config.db.dialect,
     operatorsAliases: false,
     pool: {
         max: 5,
         min: 0,
-        acquire: 30000,
+        acquire: config.db.port,
         idle: 10000
     }
 });
@@ -21,7 +22,7 @@ class User extends Base{
         this.userTable;
     }
     createUserTable(){
-        this.userTable = sequelize.define('user', {
+        this.userTable = sequelize.define(config.db.userTableName, {
             user_email: Sequelize.STRING(100),
             user_phone: Sequelize.INTEGER,
             user_password: { type: Sequelize.CHAR(60).BINARY, allowNull: false },
@@ -32,15 +33,8 @@ class User extends Base{
             },{ 
                 timestamps: false 
             });
+        this.userTable.belongsTo(Role.roleTable); //Adding Forgein key
         sequelize.sync();  
-    }
-    addUser(){
-        const tempdoc = {
-            user_email: "email",
-            user_phone: "51231",
-            user_password: "password"
-        }
-        this.userTable.create(tempdoc);
     }
     getAllUsers(tempDoc){
         tempDoc = sequelize.query("SELECT * FROM `users`", { type: sequelize.QueryTypes.SELECT});

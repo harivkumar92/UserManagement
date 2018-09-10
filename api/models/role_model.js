@@ -1,12 +1,13 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('usermanagement', 'user', 'password', {
-    host: 'localhost',
-    dialect: 'mysql',
+const config = require('f:/Freelance/git/UserManagement/config');
+const sequelize = new Sequelize(config.db.name, config.db.con_name, config.db.con_password, {
+    host: config.db.host,
+    dialect: config.db.dialect,
     operatorsAliases: false,
     pool: {
         max: 5,
         min: 0,
-        acquire: 30000,
+        acquire: config.db.port,
         idle: 10000
     }
 });
@@ -16,7 +17,7 @@ class Role{
         this.roleTable;
     }
     createRoleTable(){
-        this.roleTable = sequelize.define('role', {
+        this.roleTable = sequelize.define(config.db.roleTableName, {
                 role_name: { type: Sequelize.STRING(45), allowNull: false },
                 role_status: Sequelize.STRING(10) 
             },{ 
